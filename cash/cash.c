@@ -34,4 +34,3 @@ int main(void)
         count++;     //count number of times
     }
     printf("%i\n", count);
-}
