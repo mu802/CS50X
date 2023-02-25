@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int height; //declare int variable Height
+     int height; //declare int variable Height
     do
     {
         height = get_int("Height: ");
@@ -17,11 +17,6 @@ int main(void)
             printf(" ");
         }
         for (int hash = 0; hash < row + 1; hash++) //to print hashes(#)
-        {
-            printf("#");
-        }
-        printf("  ");
-        for (int right_hash = 0; right_hash < row + 1; right_hash++)
         {
             printf("#");
         }
