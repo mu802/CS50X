@@ -7,6 +7,7 @@ int calculate_dimes(int cents);
 int calculate_nickels(int cents);
 int calculate_pennies(int cents);
 
+
 int main(void)
 {
     // Ask how many cents the customer is owed
@@ -38,29 +39,61 @@ int main(void)
 int get_cents(void)
 {
     // TODO
-    return 0;
+    int user = 0;
+    do
+    {
+        user = get_int("Enter input: ");
+    }
+    while (user < 0);
+    return user;
+    // this function is Done!
 }
 
 int calculate_quarters(int cents)
 {
     // TODO
-    return 0;
+    int sum = 0;
+    while (cents >= 25)
+    {
+        cents -= 25;
+        sum++;
+    }
+    return sum;
+    // this is Done too!
 }
 
 int calculate_dimes(int cents)
 {
     // TODO
-    return 0;
+    int sum = 0;
+    while (cents >= 10)
+    {
+        cents -= 10;
+        sum++;
+    }
+    return sum;
 }
 
 int calculate_nickels(int cents)
 {
     // TODO
-    return 0;
+    int sum = 0;
+    while (cents >= 5)
+    {
+        cents -= 5;
+        sum++;
+    }
+    return sum;
 }
 
 int calculate_pennies(int cents)
 {
     // TODO
-    return 0;
+    int sum = 0;
+    while (cents >= 1)
+    {
+        cents -= 1;
+        sum++;
+    }
+    return sum;
 }
