@@ -1,5 +1,10 @@
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
+
+    // created by : alisharify
+    //Do not copy code
+
 
 // Max voters and candidates
 #define MAX_VOTERS 100
@@ -78,7 +83,6 @@ int main(int argc, string argv[])
                 return 4;
             }
         }
-
         printf("\n");
     }
 
@@ -128,6 +132,17 @@ int main(int argc, string argv[])
 bool vote(int voter, int rank, string name)
 {
     // TODO
+    /* {}{} in this function we first find candidate and if name is valid we update the prefrences
+    and return true else we return false*/
+
+    for (int i = 0 ; i < candidate_count ; i++)
+    {
+        if (strcmp(candidates[i].name, name) == 0)
+        {
+            preferences[voter][rank] = i;
+            return true;
+        }
+    }
     return false;
 }
 
@@ -135,6 +150,27 @@ bool vote(int voter, int rank, string name)
 void tabulate(void)
 {
     // TODO
+    int stoone = 0;
+    int Tflag = 0;
+    for (int j = 0 ; j < voter_count ; j++)
+    {
+        do
+        {
+            Tflag = 0;
+            int tmp = preferences[j][stoone];
+            if (candidates[tmp].eliminated == true)
+            {
+                Tflag++;
+                stoone++;
+            }
+            else
+            {
+                candidates[tmp].votes++;
+                stoone = 0;
+            }
+        }
+        while (Tflag > 0);
+    }
     return;
 }
 
@@ -142,6 +178,15 @@ void tabulate(void)
 bool print_winner(void)
 {
     // TODO
+    int tmp = (voter_count / 2);
+    for (int i = 0 ; i < candidate_count ; i++)
+    {
+        if (candidates[i].votes > tmp)
+        {
+            printf("%s\n", candidates[i].name);
+            return true;
+        }
+    }
     return false;
 }
 
@@ -149,13 +194,41 @@ bool print_winner(void)
 int find_min(void)
 {
     // TODO
-    return 0;
+    int tmp = candidates[0].votes;
+    for (int i = 1 ; i < candidate_count; i++)
+    {
+        if (candidates[i].eliminated == false)
+        {
+            if (tmp > candidates[i].votes)
+            {
+                tmp = candidates[i].votes;
+            }
+        }
+    }
+    return tmp;
 }
 
 // Return true if the election is tied between all candidates, false otherwise
 bool is_tie(int min)
 {
     // TODO
+    int counter = 0;
+    int candirr = 0;
+    for (int i = 0 ; i < candidate_count ; i++)
+    {
+        if (candidates[i].eliminated == false)
+        {
+            candirr++;
+            if (candidates[i].votes == min)
+            {
+                counter++;
+            }
+        }
+    }
+    if (counter == candirr)
+    {
+        return true;
+    }
     return false;
 }
 
@@ -163,5 +236,22 @@ bool is_tie(int min)
 void eliminate(int min)
 {
     // TODO
+    for (int i = 0 ; i < candidate_count ; i++)
+    {
+        if (candidates[i].votes == min)
+        {
+            candidates[i].eliminated = true;
+        }
+    }
     return;
 }
+
+
+// this function return true when all pepole is tie
+
+// and also include som lib
+
+/*
+
+
+*/
