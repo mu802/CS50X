@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-    // created by : alisharify
-    //Do not copy code
 
 
 // Max voters and candidates
