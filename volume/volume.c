@@ -1,14 +1,9 @@
 // Modifies the volume of an audio file
-
+#include <cs50.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-//defind data type
-typedef uint8_t BYTE88;
-typedef int16_t BYTE166;
-
+#include <math.h>
 
 // Number of bytes in .wav header
 const int HEADER_SIZE = 44;
@@ -36,19 +31,23 @@ int main(int argc, char *argv[])
         printf("Could not open file.\n");
         return 1;
     }
-    //read header from file
-    float factor = atof(argv[3]);
-    BYTE88 header[HEADER_SIZE];
-    fread(header, sizeof(BYTE8), HEADER_SIZE, input);
-    fwrite(header, sizeof(BYTE8), HEADER_SIZE, output);
 
-    //read each byte
-    BYTE166 buffer;
-    while (fread(&buffer, sizeof(BYTE16), 1, input))
+    float factor = atof(argv[3]);
+
+    // TODO: Copy header from input file to output file
+    uint8_t header[HEADER_SIZE];
+    /* There is only one header, so parse it just once */
+    fread(&header, sizeof(header), 1, input);
+    fwrite(&header, sizeof(header), 1, output);
+
+    // TODO: Read samples from input file and write updated data to output file
+    int16_t buffer;
+    while (fread(&buffer, sizeof(buffer), 1, input))
     {
         buffer *= factor;
-        fwrite(&buffer, sizeof(BYTE16), 1, output);
+        fwrite(&buffer, sizeof(buffer), 1, output);
     }
+
     // Close files
     fclose(input);
     fclose(output);
