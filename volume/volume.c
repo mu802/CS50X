@@ -3,6 +3,12 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+//defind data type
+typedef uint8_t BYTE88;
+typedef int16_t BYTE166;
+
 
 // Number of bytes in .wav header
 const int HEADER_SIZE = 44;
@@ -30,13 +36,19 @@ int main(int argc, char *argv[])
         printf("Could not open file.\n");
         return 1;
     }
-
+    //read header from file
     float factor = atof(argv[3]);
+    BYTE88 header[HEADER_SIZE];
+    fread(header, sizeof(BYTE8), HEADER_SIZE, input);
+    fwrite(header, sizeof(BYTE8), HEADER_SIZE, output);
 
-    // TODO: Copy header from input file to output file
-
-    // TODO: Read samples from input file and write updated data to output file
-
+    //read each byte
+    BYTE166 buffer;
+    while (fread(&buffer, sizeof(BYTE16), 1, input))
+    {
+        buffer *= factor;
+        fwrite(&buffer, sizeof(BYTE16), 1, output);
+    }
     // Close files
     fclose(input);
     fclose(output);
