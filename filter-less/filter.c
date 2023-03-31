@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+
     // Define allowable filters
     char *filters = "bgrs";
 
@@ -13,21 +14,21 @@ int main(int argc, char *argv[])
     char filter = getopt(argc, argv, filters);
     if (filter == '?')
     {
-        printf("Invalid filter.\n");
+        fprintf(stderr, "Invalid filter.\n");
         return 1;
     }
 
     // Ensure only one filter
     if (getopt(argc, argv, filters) != -1)
     {
-        printf("Only one filter allowed.\n");
+        fprintf(stderr, "Only one filter allowed.\n");
         return 2;
     }
 
     // Ensure proper usage
     if (argc != optind + 2)
     {
-        printf("Usage: ./filter [flag] infile outfile\n");
+        fprintf(stderr, "Usage: filter [flag] infile outfile\n");
         return 3;
     }
 
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
     FILE *inptr = fopen(infile, "r");
     if (inptr == NULL)
     {
-        printf("Could not open %s.\n", infile);
+        fprintf(stderr, "Could not open %s.\n", infile);
         return 4;
     }
 
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
     if (outptr == NULL)
     {
         fclose(inptr);
-        printf("Could not create %s.\n", outfile);
+        fprintf(stderr, "Could not create %s.\n", outfile);
         return 5;
     }
 
@@ -66,11 +67,10 @@ int main(int argc, char *argv[])
     {
         fclose(outptr);
         fclose(inptr);
-        printf("Unsupported file format.\n");
+        fprintf(stderr, "Unsupported file format.\n");
         return 6;
     }
 
-    // Get image's dimensions
     int height = abs(bi.biHeight);
     int width = bi.biWidth;
 
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
     RGBTRIPLE(*image)[width] = calloc(height, width * sizeof(RGBTRIPLE));
     if (image == NULL)
     {
-        printf("Not enough memory to store image.\n");
+        fprintf(stderr, "Not enough memory to store image.\n");
         fclose(outptr);
         fclose(inptr);
         return 7;
@@ -143,8 +143,11 @@ int main(int argc, char *argv[])
     // Free memory for image
     free(image);
 
-    // Close files
+    // Close infile
     fclose(inptr);
+
+    // Close outfile
     fclose(outptr);
+
     return 0;
 }
