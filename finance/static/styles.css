@@ -21,3 +21,9 @@ nav .navbar-brand .green
 {
     color: #2e944b;
 }
+
+
+.my-auto{
+    width: 70%;
+    margin: 0 auto;
+}
