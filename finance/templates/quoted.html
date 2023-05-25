@@ -1,13 +1,9 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Quoted
+Quoted
 {% endblock %}
 
 {% block main %}
-    {% if value %}
-    <div class="w-max w-auto">
-    <p>A share of {{value['name']}} ({{value['symbol']}}) costs ${{value['price']}}.</p>
-</div>
-    {% endif %}
+A share of {{ name }} ({{ symbol }}) costs {{ price | usd()}}.
 {% endblock %}
