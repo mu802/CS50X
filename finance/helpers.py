@@ -2,10 +2,9 @@ import os
 import requests
 import urllib.parse
 
-from flask import Flask, redirect, render_template, request, session
+from flask import redirect, render_template, request, session
 from functools import wraps
 
-app = Flask(__name__)
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -26,7 +25,7 @@ def login_required(f):
     """
     Decorate routes to require login.
 
-    https://flask.palletsprojects.com/en/2.0.x/patterns/viewdecorators/
+    https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -34,7 +33,6 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
-
 
 
 def lookup(symbol):
@@ -64,14 +62,3 @@ def lookup(symbol):
 def usd(value):
     """Format value as USD."""
     return f"${value:,.2f}"
-
-
-@app.route("/")
-@login_required
-def index():
-    # Your index route implementation goes here
-    pass
-
-
-if __name__ == "__main__":
-    app.run()
