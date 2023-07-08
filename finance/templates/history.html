@@ -1,28 +1,35 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
+
 
 {% block title %}
     History
 {% endblock %}
 
 {% block main %}
-    <table class="table table-triped">
-        <thead>
-            <tr>
-                <th>Symbol</th>
-                <th>Shares</th>
-                <th>Price</th>
-                <th>Transacted</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for t in transactions %}
-                <tr>
-                    <td>{{ t.symbol }}</td>
-                    <td>{{ t.shares }}</td>
-                    <td>{{ t.price | usd }}</td>
-                    <td>{{ t.transacted }}</td>
-                </tr>
+
+<div class="my-auto">
+<table class="table ">
+    <thead>
+      <tr>
+        <th class="text-start" scope="col">Symbol</th>
+        <th class="text-end" scope="col">Shares</th>
+        <th class="text-end" scope="col">Price</th>
+        <th  class="text-end" scope="col">Transacted</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if value %}
+        {% for each in value %}
+        <tr>
+            <td class="text-start">{{each['symbol']}}</td>
+            <td style="text-align:end ;" >{{each['shares']}}</td>
+            <td style="text-align:end ;" >{{each['price']}}</td>
+            <td class="text-end">{{each['time']}}</td>
+          </tr>
             {% endfor %}
-        </tbody>
-    </table>
+        {% endif %}
+    </tbody>
+
+  </table>
+</div>
 {% endblock %}
