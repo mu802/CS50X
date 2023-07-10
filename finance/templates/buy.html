@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Buy
+    Buy Stock
 {% endblock %}
 
 {% block main %}
     <form action="/buy" method="post">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+            <input autofocus required class="form-control" name="symbol" placeholder="Stock symbol" type="text">
+            <input required class="form-control" style='width: 120px' name="shares" placeholder="# shares" type="number" min="1">
         </div>
-        <div class="form-group">
-            <input autocomplete="off" class="form-control" name="shares" placeholder="Shares" type="number" min=1>
-        </div>
-        <button class="btn btn-primary" type="submit">Buy</button>
+        <button style='width: 200px' class="form-group btn btn-success" type="submit">Buy</button>
+        {% if invalid %}
+        <div class="alert alert-warning" role="alert" > The input symbol {{symbol}} is invalid </div>
+        {% endif %}
     </form>
 {% endblock %}
